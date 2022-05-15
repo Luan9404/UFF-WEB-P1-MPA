@@ -15,6 +15,16 @@ app.use(cookieSession({
   secret: 'jhioiurhnadkjobafskjlodifjangalsd',
   maxAge: 24 * 3600 
 }))
+
+app.use('/*',(req, res, next) => {
+  if(req.session.isNew){
+    req.session.logged = false
+    req.session.userEmail = null
+    req.session.userId = null
+    req.session.isAdmin = null
+  }
+    next()
+})
 routes(app)
 
 app.listen(port, () => {
