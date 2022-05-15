@@ -22,6 +22,10 @@ class UserController {
     req.render("sign-up")
   }
 
+  async signIn(res, req){
+    req.render("sign-in")
+  }
+
   async getConta(res, req){
     req.render("minha-conta")
   }
