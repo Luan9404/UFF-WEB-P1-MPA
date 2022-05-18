@@ -8,5 +8,5 @@ export const routes = (app) => {
 
   app.use('/user', userRoutes)
 
-  app.get('/admin', adminRoutes)
+  app.use('/admin', adminRoutes)
 }

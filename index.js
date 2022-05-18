@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(cookieSession({
   name: 'session',
   secret: 'jhioiurhnadkjobafskjlodifjangalsd',
-  maxAge: 24 * 3600 
+  maxAge: 24 * 3600000 
 }))
 
 app.use('/*',(req, res, next) => {

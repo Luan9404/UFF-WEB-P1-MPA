@@ -13,8 +13,8 @@ class UserController {
       res.status(500).send({error: 'Email já cadastrado'})
 
     }else {
-      const result = userRepository.registerUser(userData)
-      res.status(200).send({result})
+      userRepository.registerUser(userData)
+      res.redirect('/')
     }
   }
 
@@ -34,18 +34,19 @@ class UserController {
     let userData = req.body
     let user = await userRepository.getUserByEmail(userData.email)
     if(!user){
-      res.status(404).send({error: 'Usuário não encontrado'})
+      res.status(403).send({error: 'Usuário não encontrado'})
     }
     if(userData.senha != user.senha){
-      res.status(403).send({error: 'Senha incorreta' })
+      res.status(402).send({error: 'Senha incorreta' })
     }
     req.session.userEmail = user.email
     req.session.userId = user._id.toString()
     req.session.logged = true
     user.isAdmin ? req.session.isAdmin = true : req.session.isAdmin = false
     console.log(req.session)
+    
     res.redirect('/')
-  }
+  } 
 }
 
 export const userController = new UserController()

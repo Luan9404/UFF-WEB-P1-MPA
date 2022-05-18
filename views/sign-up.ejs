@@ -9,13 +9,13 @@
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                  <form class="mx-1 mx-md-4" >
+                  <form class="mx-1 mx-md-4" method="post" action="/user/sing-up">
 
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <label class="form-label" for="form3Example1c">Nome</label>
-                        <input type="text" id="form3Example1c" class="form-control" />
+                        <input type="text" id="form3Example1c" name="nome" class="form-control" />
                       </div>
                     </div>
 
@@ -24,14 +24,14 @@
                         <div class="row">
                           <div class="col-sm">
                             <label class="form-label" for="form3Example1c">Data de nascimento</label>
-                          <input type="date" id="form3Example1c" class="form-control" />
+                          <input type="date" id="form3Example1c" name="data_nascimento" class="form-control" />
                           </div>
                           <div class="col-sm">
                             <label class="form-label" for="form3Example1c">Gênero</label>
-                            <select name="select" class="form-control">
-                              <option value="valor1" selected>--Selecione--</option>
-                              <option value="valor2">Masculino</option>
-                              <option value="valor3">Feminino</option>
+                            <select name="genero" class="form-control">
+                              <option value="" selected>--Selecione--</option>
+                              <option value="masculino">Masculino</option>
+                              <option value="feminino">Feminino</option>
                             </select>
                           </div>
                         </div>
@@ -42,7 +42,7 @@
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <label class="form-label" for="form3Example3c">Telefone</label>
-                        <input type="tel" id="phone" name="phone" placeholder="DDD XXXXX-XXXX" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" class="form-control" required>
+                        <input type="tel" id="phone" name="telefone" placeholder="DDD XXXXX-XXXX" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" class="form-control" required>
                       </div>
                     </div>
 
@@ -50,7 +50,7 @@
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <label class="form-label" for="form3Example3c">Email</label>
-                        <input type="email" id="form3Example3c" class="form-control" />
+                        <input type="email" id="form3Example3c" name="email" class="form-control" />
                       </div>
                     </div>
 
@@ -58,7 +58,7 @@
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <label class="form-label" for="form3Example4c">Senha</label>
-                        <input type="password" id="form3Example4c" class="form-control" />
+                        <input type="password" id="senha" name="senha" class="form-control" />
                       </div>
                     </div>
 
@@ -66,12 +66,13 @@
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <label class="form-label" for="form3Example4c">Confirmar senha</label>
-                        <input type="password" id="form3Example4c" class="form-control" />
+                        <input type="password" id="confirmSenha" class="form-control" />
+                        <p style="color: #f00; display: none;" id="passMessage">As senhas devem ser iguais</p>
                       </div>
                     </div>
 
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                      <button type="submit" class="btn btn-primary btn-lg" disabled id="regButton">Register</button>
                     </div>
 
                   </form>
@@ -104,5 +105,23 @@
         </div>
       </div>
     </div>
+    <script>
+      window.onload = () => {
+        document.getElementById('confirmSenha').addEventListener("keyup", ({ target }) => {
+          let { value } = target
+          let senha = document.getElementById('senha').value
+          let btn = document.getElementById('regButton') 
+          if(value == senha){
+            btn.removeAttribute('disabled')
+            document.getElementById('passMessage').style.display = 'none'
+          }else{
+            if(!btn.hasAttribute('disabled')){
+              btn.setAttribute('disabled', true)
+              document.getElementById('passMessage').style.display = 'block'
+            } 
+          }
+        })
+      }
+    </script>
   </section>
   <%- include('footer') %>
